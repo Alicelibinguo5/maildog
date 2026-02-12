@@ -1,0 +1,12 @@
+node_modules
+.DS_Store
+.env
+.env.*
+!.env.example
+**/dist
+**/.turbo
+**/.next
+**/.vite
+**/coverage
+**/*.log
+**/prisma/dev.db

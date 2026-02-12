@@ -1,0 +1,20 @@
+{
+  "name": "maildog",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @maildog/api test",
+    "db:generate": "pnpm --filter @maildog/db prisma:generate",
+    "db:migrate": "pnpm --filter @maildog/db prisma:migrate",
+    "db:studio": "pnpm --filter @maildog/db prisma:studio"
+  }
+}

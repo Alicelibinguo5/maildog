@@ -1,0 +1,32 @@
+name: maildog
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: maildog
+      POSTGRES_PASSWORD: REPLACE_ME
+      POSTGRES_DB: maildog
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maildog -d maildog"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis_data:/data
+
+  # NOTE: MailHog + app containers are intentionally not started by default here
+  # because pulling Node images may be blocked on some hosts.
+  # Run API/worker/dashboard locally via pnpm using the .env settings.
+
+volumes:
+  postgres_data:
+  redis_data:

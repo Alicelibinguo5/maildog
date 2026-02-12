@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  apiKeys   ApiKey[]
+  templates Template[]
+  messages  Message[]
+  suppressions Suppression[]
+  webhookEndpoints WebhookEndpoint[]
+}
+
+model ApiKey {
+  id          String   @id @default(uuid())
+  tenantId    String
+  name        String
+  prefix      String
+  hashedKey   String
+  last4       String
+  createdAt   DateTime @default(now())
+  revokedAt   DateTime?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@unique([tenantId, prefix, last4])
+}
+
+model Template {
+  id        String   @id @default(uuid())
+  tenantId  String
+  name      String
+  subject   String
+  html      String
+  text      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  @@index([tenantId])
+}
+
+model Suppression {
+  id        String   @id @default(uuid())
+  tenantId  String
+  email     String
+  reason    String   // bounce | complaint | unsubscribe | manual
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@unique([tenantId, email])
+}
+
+model Message {
+  id            String   @id @default(uuid())
+  tenantId      String
+  fromEmail     String
+  fromName      String?
+  toEmail       String
+  toName        String?
+  subject       String
+  text          String?
+  html          String?
+  templateId    String?
+  templateData  Json?
+  headers       Json?
+  tags          String[]
+  status        String   // queued|sent|delivered|bounce|complaint
+  provider      String?  // adapter name
+  providerMsgId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  events MessageEvent[]
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, status])
+}
+
+model MessageEvent {
+  id        String   @id @default(uuid())
+  tenantId  String
+  messageId String
+  type      String   // queued|sent|delivered|bounce|complaint|open|click|unsubscribe
+  payload   Json?
+  createdAt DateTime @default(now())
+
+  message Message @relation(fields: [messageId], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([messageId, createdAt])
+}
+
+model WebhookEndpoint {
+  id        String   @id @default(uuid())
+  tenantId  String
+  url       String
+  enabled   Boolean  @default(true)
+  events    String[] // which event types to deliver
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+}

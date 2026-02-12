@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OpenAPI schema snapshot > exposes a stable-ish OpenAPI document 1`] = `
+{
+  "components": [
+    "schemas",
+  ],
+  "info": {
+    "title": "MailDog API",
+    "version": "0.1.0",
+  },
+  "openapi": "3.0.3",
+  "paths": [
+    "/",
+    "/health",
+    "/v1/analytics/summary",
+    "/v1/events/ingest",
+    "/v1/mail/send",
+    "/v1/public/dev/seed",
+    "/v1/public/unsubscribe",
+    "/v1/suppressions",
+    "/v1/suppressions/{email}",
+    "/v1/templates",
+    "/v1/templates/{id}",
+    "/v1/webhooks",
+    "/v1/webhooks/{id}",
+    "/v3/mail/send",
+  ],
+}
+`;

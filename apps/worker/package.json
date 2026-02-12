@@ -1,0 +1,27 @@
+{
+  "name": "@maildog/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/worker.ts",
+    "build": "tsc",
+    "start": "node dist/worker.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@maildog/db": "workspace:*",
+    "bullmq": "^5.12.13",
+    "mustache": "^4.2.0",
+    "nodemailer": "^6.10.0",
+    "pino": "^9.3.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/nodemailer": "^6.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4"
+  }
+}
