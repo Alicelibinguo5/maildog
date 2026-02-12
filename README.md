@@ -41,6 +41,8 @@ MailDog is a small, multi-tenant transactional email provider (SendGrid-like cor
 cd /Users/aliceguo/src/maildog
 cp .env.example .env
 
+# Edit .env and set POSTGRES_PASSWORD + WEBHOOK_SIGNING_SECRET
+
 # first time
 # If you don't have pnpm: `npm i -g pnpm`
 pnpm install

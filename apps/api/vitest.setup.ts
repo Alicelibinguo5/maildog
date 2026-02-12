@@ -3,7 +3,7 @@ import { vi } from "vitest";
 process.env.NODE_ENV ||= "test";
 process.env.PORT ||= "0";
 process.env.API_KEY_PREFIX ||= "md_";
-process.env.WEBHOOK_SIGNING_SECRET ||= "REDACTED";
+process.env.WEBHOOK_SIGNING_SECRET ||= "REDACTED"; // test-only
 
 // Default local dev dependencies (docker-compose).
 process.env.DATABASE_URL ||= "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5435/${POSTGRES_DB}";

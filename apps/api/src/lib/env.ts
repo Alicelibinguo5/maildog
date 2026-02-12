@@ -8,7 +8,7 @@ const EnvSchema = z.object({
   MAIL_TRANSPORT: z.string().default("smtp_sink"),
   SMTP_HOST: z.string().default("localhost"),
   SMTP_PORT: z.coerce.number().default(1025),
-  WEBHOOK_SIGNING_SECRET: z.string().default("REDACTED"),
+  WEBHOOK_SIGNING_SECRET: z.string().default("REPLACE_ME"),
   API_KEY_PREFIX: z.string().default("md_")
 });
 

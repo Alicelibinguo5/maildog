@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_USER: maildog
-      POSTGRES_PASSWORD: REPLACE_ME
-      POSTGRES_DB: maildog
+      POSTGRES_USER: ${POSTGRES_USER:-maildog}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-REPLACE_ME}
+      POSTGRES_DB: ${POSTGRES_DB:-maildog}
     ports:
       - "5435:5432"
     volumes:
