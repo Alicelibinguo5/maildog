@@ -39,9 +39,26 @@ MailDog is a small, multi-tenant transactional email provider (SendGrid-like cor
 
 ```bash
 cd /Users/aliceguo/src/maildog
-cp .env.example .env
+# Create a local .env (do not commit it)
 
-# Edit .env and set POSTGRES_PASSWORD + WEBHOOK_SIGNING_SECRET
+cat > .env <<'EOF'
+POSTGRES_USER=maildog
+POSTGRES_PASSWORD=REPLACE_ME
+POSTGRES_DB=maildog
+
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5435/${POSTGRES_DB}
+REDIS_URL=redis://localhost:6381
+
+PORT=3005
+API_KEY_PREFIX=md_
+WEBHOOK_SIGNING_SECRET=REPLACE_ME
+
+MAIL_TRANSPORT=noop
+SMTP_HOST=localhost
+SMTP_PORT=1025
+EOF
+
+# Edit .env and replace the REPLACE_ME values
 
 # first time
 # If you don't have pnpm: `npm i -g pnpm`
